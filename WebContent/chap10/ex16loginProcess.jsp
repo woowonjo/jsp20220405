@@ -8,6 +8,8 @@
 String id = request.getParameter("id");
 String pw = request.getParameter("pw");
 
+session.setAttribute("id", id);
+
 // 무조건 로그인 실패
 session.setAttribute("errorMessage", "아이디나 패스워드가 일치하지 않습니다.");
 
