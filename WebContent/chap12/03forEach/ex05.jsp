@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.*"%>
+<%@ page import="java.util.*" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
@@ -13,24 +13,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form>
-	구구단 : <input type="number" name="dan" /> 단
-	<input type="submit" value="출력" />
-</form>
-
-<%-- 입력단 dan 파라미터 사용해서 구구단 출력 --%>
-<%-- dan 이 2~9 아니면 "적절한 단을 입력해주세요"  출력--%>
-
-	<c:choose>
-		<c:when test="${param.dan >= 2 and param.dan <= 9 }">
-			<c:forEach var="i" begin="1" end="9">
-				<p>${param.dan } X ${i } = ${param.dan * i}</p>
-			</c:forEach>
-		</c:when>
-		<c:otherwise>
-			<h1 class="text-warning">적절한 나이를 입력해주세요</h1>
-		</c:otherwise>
-	</c:choose>
-
+	<h1>구구단 2, 4, 6, 8 단 출력</h1>
+	
+	<c:forEach begin="2" end="8" step="2" var="dan">
+		<h3>${dan }단</h3>
+		<c:forEach begin="1" end="9" var="i">
+			<p>${dan } X ${i } = ${dan * i }</p>
+		</c:forEach>
+	</c:forEach>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
