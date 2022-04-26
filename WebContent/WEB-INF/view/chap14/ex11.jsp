@@ -27,6 +27,21 @@
 </head>
 <body>
 	<h1>직원목록</h1>
+	
+	<c:if test="${not empty param.success }">
+		<c:if test="${param.success }">
+			<div class="alert alert-success">
+				삭제 되었습니다.
+			</div>
+		</c:if>
+		
+		<c:if test="${not param.success }">
+			<div class="alert alert-danger">
+				삭제하는 중에 문제가 발생하였습니다.
+			</div>
+		</c:if>
+	</c:if>
+	
 	<table class="table">
 		<thead>
 			<tr>
