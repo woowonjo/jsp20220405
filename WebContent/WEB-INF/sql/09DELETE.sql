@@ -1,6 +1,7 @@
 USE w3schools;
 
 SELECT * FROM Employees;
+SELECT * FROM Customers;
 
 -- safe mode 해제
 SET SQL_SAFE_UPDATES = 0;
@@ -15,5 +16,6 @@ DELETE FROM Customers WHERE Country = 'Mexico';
 DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste';
 SELECT * FROM Customers WHERE CustomerName='Alfreds Futterkiste';
 
+DESC Employees;
 
-
+SELECT * FROM Customers WHERE CustomerID = '4';
