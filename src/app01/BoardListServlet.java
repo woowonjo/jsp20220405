@@ -2,6 +2,7 @@ package app01;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,17 +16,17 @@ import app01.dao.BoardDao;
 import app01.dto.BoardDto;
 
 /**
- * Servlet implementation class BoardInsertServlet
+ * Servlet implementation class BoardListServlet
  */
-@WebServlet("/board/insert")
-public class BoardInsertServlet extends HttpServlet {
+@WebServlet("/board/list")
+public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private DataSource ds;
-	
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertServlet() {
+    public BoardListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,48 +41,32 @@ public class BoardInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// request parameter 가공
 		
-		String path = "/WEB-INF/view/app01/insert.jsp";
+		// database 관련 작업 (bussiness logic 처리)
+		BoardDao dao = new BoardDao();
+		try (Connection con = ds.getConnection()) {
+			List<BoardDto> list = dao.list(con);
+			
+			// request attribute setting
+			request.setAttribute("boardList", list);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// forward or redirect
+		String path = "/WEB-INF/view/app01/list.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// request 파라미터 가공
-		String title = request.getParameter("title");
-		String body = request.getParameter("body");
-		BoardDto dto = new BoardDto();
-		dto.setTitle(title);
-		dto.setBody(body);
-		
-		// db에 입력
-		// DAO (Data Access Object)
-		try (Connection con = ds.getConnection();) {
-			BoardDao dao = new BoardDao();
-			boolean success = dao.insert(con, dto);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		// forward/redirect
-		String path = request.getContextPath() + "/board/insert";
-		response.sendRedirect(path);
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

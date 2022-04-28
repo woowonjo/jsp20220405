@@ -12,25 +12,30 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- .container>.row>.col>h1{글 작성} -->
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1>글 작성</h1>
+				<h1>글 목록</h1>
 				
-				<form action="${appRoot }/board/insert" method="post">
-					<div>
-						<label class="form-label" for="input1">제목</label>
-						<input class="form-control" type="text" name="title" required id="input1" />
-					</div>
-					
-					<div>
-						<label class="form-label" for="textarea1">본문</label>
-						<textarea class="form-control" name="body" id="textarea1" cols="30" rows="10"></textarea>
-					</div>
-					
-					<button class="btn btn-primary">작성</button>
-				</form>
+				<!-- table.table>thead>tr>th*3^^tbody -->
+				<table class="table">
+					<thead>
+						<tr>
+							<th><i class="fa-solid fa-hashtag"></i></th>
+							<th>제목</th>
+							<th><i class="fa-solid fa-calendar"></i></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${boardList }" var="board">
+							<tr>
+								<td>${board.id }</td>
+								<td>${board.title }</td>
+								<td>${board.prettyInserted }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
