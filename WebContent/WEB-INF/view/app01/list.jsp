@@ -30,7 +30,16 @@
 						<c:forEach items="${boardList }" var="board">
 							<tr>
 								<td>${board.id }</td>
-								<td>${board.title }</td>
+								<td>
+													
+									<c:url value="/board/get" var="getUrl">
+										<c:param name="id" value="${board.id }"></c:param>
+									</c:url>
+									
+									<a href="${getUrl }">
+										${board.title }
+									</a>
+								</td>
 								<td>${board.prettyInserted }</td>
 							</tr>
 						</c:forEach>

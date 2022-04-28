@@ -63,6 +63,33 @@ public class BoardDao {
 
 		return list;
 	}
+
+	public BoardDto get(Connection con, int id) {
+		String sql = "SELECT id, title, body, inserted "
+				+ "FROM Board "
+				+ "WHERE id = ?";
+		
+		try (PreparedStatement stmt = con.prepareStatement(sql);) {
+			
+			stmt.setInt(1, id);
+			
+			try (ResultSet rs = stmt.executeQuery()) {
+				if (rs.next()) {
+					BoardDto board = new BoardDto();
+					board.setId(rs.getInt(1));
+					board.setTitle(rs.getString(2));
+					board.setBody(rs.getString(3));
+					board.setInserted(rs.getTimestamp(4).toLocalDateTime());
+					
+					return board;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
 
 
