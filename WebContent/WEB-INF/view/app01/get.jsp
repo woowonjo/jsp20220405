@@ -55,6 +55,17 @@
 			$(displayDivId).hide();
 			$(editFormId).show();
 		});
+		
+		// reply-delete-button 클릭시
+		$(".reply-delete-button").click(function() {
+			const replyId = $(this).attr("data-reply-id");
+			const message = "댓글을 삭제하시겠습니까?";
+			
+			if (confirm(message)) {
+				$("#replyDeleteInput1").val(replyId);
+				$("#replyDeleteForm1").submit();
+			}
+		});
 	});
 </script>
 
@@ -144,6 +155,10 @@
 							 	${reply.content }
 							 	
 							 	<button class="reply-edit-toggle-button" id="replyEditToggleButton${reply.id }" data-reply-id="${reply.id }" ><i class="fa-solid fa-pen-to-square"></i></button>
+							 	
+							 	<button class="reply-delete-button" data-reply-id="${reply.id }">
+							 		<i class="fa-solid fa-trash-can"></i>
+							 	</button>
 							</div>
 							
 							<div id="replyEditFormContainer${reply.id }" style="display: none;">
@@ -165,6 +180,12 @@
 		</div>
 	</div>
 	
+	<%-- reply 삭제 form --%>
+	<div class="d-none">
+		<form id="replyDeleteForm1" action="${appRoot }/reply/delete" method="post">
+			<input id="replyDeleteInput1" type="text" name="id" />
+		</form>
+	</div>
 </body>
 </html>
 
