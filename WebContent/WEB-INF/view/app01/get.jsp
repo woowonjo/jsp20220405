@@ -29,11 +29,15 @@
 		
 		$("#delete-submit1").click(function(e) {
 			e.preventDefault();
-			let form1 = $("#form1");
-			let actionAttr = "${appRoot}/board/remove";
-			form1.attr("action", actionAttr);
 			
-			form1.submit();
+			if (confirm("삭제하시겠습니까?")) {
+				let form1 = $("#form1");
+				let actionAttr = "${appRoot}/board/remove";
+				form1.attr("action", actionAttr);
+				
+				form1.submit();
+			}
+			
 		});
 	});
 </script>
