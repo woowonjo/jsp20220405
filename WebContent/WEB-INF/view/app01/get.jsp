@@ -184,6 +184,7 @@
 	<div class="d-none">
 		<form id="replyDeleteForm1" action="${appRoot }/reply/delete" method="post">
 			<input id="replyDeleteInput1" type="text" name="id" />
+			<input type="text" name="boardId" value="${board.id }" />
 		</form>
 	</div>
 </body>

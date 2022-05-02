@@ -1,6 +1,7 @@
 package app01;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
+import app01.dao.ReplyDao;
 
 /**
  * Servlet implementation class ReplyRemoveServlet
@@ -50,14 +53,28 @@ public class ReplyRemoveServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// request 파라미터 수집/ 가공
+		String idStr = request.getParameter("id");
+		int id = Integer.parseInt(idStr);
 		
+		String boardId = request.getParameter("boardId");
 		
 		// bussiness logic 처리
+		// sql:
+		// DELETE FROM Reply WHERE id = ?
+		ReplyDao dao = new ReplyDao();
 		
+		boolean success = false;
+		try (Connection con = ds.getConnection()) {
+			success = dao.delete(con, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		// 결과세팅..(xxx)
 		
 		// forward / redirect
+		String loc = request.getContextPath() + "/board/get?id=" + boardId;
+		response.sendRedirect(loc);
 		
 	}
 
