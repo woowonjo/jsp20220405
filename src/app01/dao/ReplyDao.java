@@ -83,6 +83,22 @@ public class ReplyDao {
 		
 		return false;
 	}
+
+	public boolean delete(Connection con, int id) {
+		String sql = "DELETE FROM Reply WHERE id = ?";
+		
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, id);
+			
+			int cnt = pstmt.executeUpdate();
+			return cnt == 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }
 
 
